@@ -16,8 +16,6 @@ const template = () => html`
 
 class Home extends HTMLElement {
     connectedCallback() {
-        console.log('connected home');
-
         this.render();
     }
 
