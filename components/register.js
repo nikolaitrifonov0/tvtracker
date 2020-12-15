@@ -1,4 +1,5 @@
 import {html, render} from 'https://unpkg.com/lit-html?module';
+import {register} from '../services/auth.js';
 
 const template = () => html`
     <home-component></home-component>
@@ -27,6 +28,12 @@ class Register extends HTMLElement {
 
 function onSubmit(e) {
     e.preventDefault();
+    let formData = new FormData(e.target);
+    let email = formData.get('email');
+    let password = formData.get('password');
+    let repeatPassword = formData.get('repeatPassword');
+
+    register(email, password, repeatPassword);
 }
 
 export default Register;
