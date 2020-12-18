@@ -125,3 +125,16 @@ header h1 {
     width: 30%;
     margin-left: 95px;
 }
+.error-notification {
+    position: fixed;
+    display: none;
+    bottom: 10px;
+    right: 10px;
+    width: 15%;
+    height: 8%;
+    border-radius: 5%;
+    text-align: center;
+    margin: auto;
+    font-size: 3ch;
+    background-color: rgb(247, 48, 48);
+}
