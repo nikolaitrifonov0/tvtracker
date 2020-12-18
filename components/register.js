@@ -6,11 +6,11 @@ const template = () => html`
     <div class="register">
         <form action="/register" method="post" @submit= ${onSubmit}>
             <label for="email">Email:</label>
-            <input type="text" name="email">
+            <input type="email" name="email">
             <label for="password">Password:</label>
-            <input type="text" name="password">
+            <input type="password" name="password">
             <label for="repeatPassword">Repeat password:</label>
-            <input type="text" name="repeatPassword">
+            <input type="password" name="repeatPassword">
             <button type="submit">Register</button>
         </form>
     </div>
@@ -33,7 +33,8 @@ function onSubmit(e) {
     let password = formData.get('password');
     let repeatPassword = formData.get('repeatPassword');
 
-    register(email, password, repeatPassword);
+    register(email, password, repeatPassword)
+    .catch(e => console.log(e));
 }
 
 export default Register;

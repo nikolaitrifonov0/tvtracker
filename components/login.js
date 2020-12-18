@@ -5,9 +5,9 @@ const template = () => html`
     <div class="login">
         <form action="/login" method="post">
             <label for="email">Email:</label>
-            <input type="text" name="email">
+            <input type="email" name="email">
             <label for="password">Password:</label>
-            <input type="text" name="password">
+            <input type="password" name="password">
             <button type="submit">Login</button>
         </form>
     </div>
