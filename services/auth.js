@@ -10,6 +10,7 @@ export function register(email, password, repeatPassword) {
     firebase.auth().createUserWithEmailAndPassword(email, password)
     .then(res => {
         sessionStorage.setItem('auth', JSON.stringify(res));
+        Router.go('/');
     })
     .catch(e => errorHandler(e));
 }
