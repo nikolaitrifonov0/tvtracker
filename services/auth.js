@@ -4,5 +4,8 @@ export function register(email, password, repeatPassword) {
     } else if (password != repeatPassword) {
         throw new Error('Passwords don\'t match');
     }
-    firebase.auth().createUserWithEmailAndPassword(email, password);
+    firebase.auth().createUserWithEmailAndPassword(email, password)
+    .then(res => {
+        sessionStorage.setItem('auth', JSON.stringify(res));
+    });
 }

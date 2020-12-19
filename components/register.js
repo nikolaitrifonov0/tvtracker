@@ -1,5 +1,6 @@
 import {html, render} from 'https://unpkg.com/lit-html?module';
 import {register} from '../services/auth.js';
+import errorHandler from '../utilities/errorHandler.js';
 
 const template = () => html`
     <home-component></home-component>
@@ -33,8 +34,9 @@ function onSubmit(e) {
     let password = formData.get('password');
     let repeatPassword = formData.get('repeatPassword');
 
-    register(email, password, repeatPassword)
-    .catch(e => console.log(e));
+    try{
+    register(email, password, repeatPassword);
+    } catch(e) {errorHandler(e);}
 }
 
 export default Register;
