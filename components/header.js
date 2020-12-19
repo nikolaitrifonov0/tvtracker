@@ -1,12 +1,15 @@
 import {html, render} from 'https://unpkg.com/lit-html?module';
+import {getUserData} from '../services/auth.js';
 
 const template = () => html`
     <header>
         <ul>
             <li><h1><a>TV tracker</a></h1></li>
             <li><a href="/">Home</a></li>
-            <li><a href="/login">Login</a></li>
-            <li><a href="/register">Register</a></li>
+            ${getUserData().isAuthenticated
+            ? html`<li><a href="/logout">Logout</a></li>>`
+            : html`<li><a href="/login">Login</a></li>
+            <li><a href="/register">Register</a></li>`}
             <input type="text" class="search">
         </ul>
     </header>

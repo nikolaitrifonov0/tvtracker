@@ -1,6 +1,7 @@
 import {html, render} from 'https://unpkg.com/lit-html?module';
 
 const template = () => html`
+    <header-component></header-component>
     <div class="series-container">
         <div class="series">
             <img src="https://images-na.ssl-images-amazon.com/images/I/514969URVvL._SY445_.jpg" alt="">
