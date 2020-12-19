@@ -1,4 +1,6 @@
 import {html, render} from 'https://unpkg.com/lit-html?module';
+import {login} from '../services/auth.js';
+import errorHandler from '../utilities/errorHandler.js';
 
 const template = () => html`
     <home-component></home-component>
@@ -30,7 +32,7 @@ function onSubmit(e) {
     let password = formData.get('password');
 
     try{
-    login(email, password, repeatPassword);
+    login(email, password);
     } catch(e) {errorHandler(e);}
 }
 
