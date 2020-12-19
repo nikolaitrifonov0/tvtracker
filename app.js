@@ -18,9 +18,9 @@ router.setRoutes([
     {path: '/login', component: 'login-component'},
     {path: '/register', component: 'register-component'},
     {path: '/logout', 
-    action: (context, commands) => {
+    action: (context, commands) => {        
         logout();
-        return commands.redirect('/');
+        return commands.component('home-component');
     }},
     
 ]);
