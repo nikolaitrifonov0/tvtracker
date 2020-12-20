@@ -34,6 +34,21 @@ header h1 {
     font-size: 20px;
     margin: 0;
 }
+.searchDiv {
+    float: right;
+    display: flex;    
+    flex-direction: column;
+    margin-right: 50px;
+    width: 15%;
+}
+.searchDiv ul {
+    float: right;
+    display: flex;
+    position: static;
+    flex-wrap: wrap;
+    flex-direction: column;
+    margin-right: 7px;
+}
 .search {
     float: right;    
     margin: 10px;

@@ -9,5 +9,8 @@ const queriesURL = {
 
 export async function search(keywords) {
     let url = queriesURL.search(keywords);
-    return request(url);
+    let response = await request(url);    
+    let formattedResult = await response.results.map(r => {return {name: r.name, id: r.id}});
+    
+    return formattedResult;
 }
