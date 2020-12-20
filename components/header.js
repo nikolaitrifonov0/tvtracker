@@ -1,5 +1,6 @@
 import {html, render} from 'https://unpkg.com/lit-html?module';
 import {getUserData} from '../services/auth.js';
+import {search} from '../services/showsAPI.js';
 
 const template = () => html`
     <header>
@@ -16,7 +17,7 @@ const template = () => html`
 `;
 
 class Header extends HTMLElement {
-    connectedCallback() {
+    connectedCallback() {        
         this.render();
     }
 

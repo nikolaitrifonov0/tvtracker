@@ -20,6 +20,7 @@ router.setRoutes([
     {path: '/logout', 
     action: (context, commands) => {        
         logout();
+        location = '/';
         return commands.component('home-component');
     }},
     
