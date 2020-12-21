@@ -156,29 +156,26 @@ header h1 {
 .details {
     margin: 50px;    
 }
-.details img {
-    display: inline;
-    position: relative;
-}
+
 .details h1 {
     display: inline;
-    position: relative;
-    bottom: 350px;
-    left: 5%;
+    position: fixed;
+    bottom: 82%;
+    left: 25%;
     color: white;
     font-size: 5ch;
 }
 .details h2 {
     display: inline;
-    position: relative;
-    bottom: 325px;
-    right: 13%;
+    position: fixed;
+    bottom: 81%;
+    right: 70%;
     color: white;
     font-size: 2ch;
 }
 .details p {
     display: inline;
-   position: absolute;
+   position: fixed;
    top: 18%;
    left: 25%;
    width: 50%;
