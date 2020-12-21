@@ -28,7 +28,7 @@ export async function getTV(id) {
     let tv = {
         name: response.name,
         overview: response.overview,
-        poster: response['poster_path'],
+        poster: 'https://image.tmdb.org/t/p/w342' + response['poster_path'],
         genres: response.genres.map(g => g.name).join()
     };
 
