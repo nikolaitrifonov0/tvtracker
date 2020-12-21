@@ -2,12 +2,9 @@ import request from './request.js';
 
 const key = 'd57c009840fb2fde46d325cef8d56af3';
 const queriesURL = {
-    search: keywords => {
-        return `https://api.themoviedb.org/3/search/tv?api_key=${key}&page=1&query=${keywords}&include_adult=true`;
-    },
-    tv: id => {
-        return `https://api.themoviedb.org/3/tv/${id}?api_key=${key}&language=en-US`;
-    }  
+    search: keywords =>`https://api.themoviedb.org/3/search/tv?api_key=${key}&page=1&query=${keywords}&include_adult=true`,
+    tv: id => `https://api.themoviedb.org/3/tv/${id}?api_key=${key}&language=en-US`,
+    detailsPoster: path =>  'https://image.tmdb.org/t/p/w342' + path,
 }
 
 export async function search(keywords) {
@@ -28,7 +25,7 @@ export async function getTV(id) {
     let tv = {
         name: response.name,
         overview: response.overview,
-        poster: 'https://image.tmdb.org/t/p/w342' + response['poster_path'],
+        poster: queriesURL.detailsPoster(response['poster_path']),
         genres: response.genres.map(g => g.name).join()
     };
 
