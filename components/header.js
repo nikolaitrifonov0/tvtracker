@@ -30,6 +30,7 @@ async function loadResults(e) {
             let li = document.createElement('li');       
             let a = document.createElement('a');
             a.textContent = r.name;
+            a.href = `/${r.id}`;
             
             li.appendChild(a);
 

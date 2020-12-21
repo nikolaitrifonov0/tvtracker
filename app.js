@@ -4,11 +4,13 @@ import Home from './components/home.js';
 import Login from './components/login.js';
 import Register from './components/register.js';
 import Header from './components/header.js';
+import Details from './components/details.js';
 
 customElements.define('home-component', Home);
 customElements.define('login-component', Login);
 customElements.define('register-component', Register);
 customElements.define('header-component', Header);
+customElements.define('details-component', Details);
 
 const outlet = document.querySelector('.main');
 const router = new Router(outlet);
@@ -23,5 +25,5 @@ router.setRoutes([
         location = '/';
         return commands.component('home-component');
     }},
-    
+    {path: '/:id', component: 'details-component'},
 ]);

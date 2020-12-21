@@ -9,8 +9,11 @@ const queriesURL = {
 
 export async function search(keywords) {
     let url = queriesURL.search(keywords);
-    let response = await request(url);    
-    let formattedResult = await response.results.map(r => {return {name: r.name, id: r.id}});
+    let response = await request(url);   
+    let formattedResult = await response.results.map(r => {
+        let name = `${r.name} (${r['first_air_date'].substring(0, 4)})`;
+        return {name: name, id: r.id};
+    });
     
     return formattedResult;
 }
