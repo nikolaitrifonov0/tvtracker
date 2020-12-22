@@ -1,5 +1,6 @@
 import {html, render} from 'https://unpkg.com/lit-html?module';
 import {getTV} from '../services/showsAPI.js';
+import {getUserData} from '../services/auth.js';
 
 const template = (ctx) => html`
     <header-component></header-component>
@@ -7,7 +8,10 @@ const template = (ctx) => html`
         <img src="${ctx.poster}" alt="">
         <h1>${ctx.name}</h1>
         <h2>${ctx.genres}</h2>
-        <p>${ctx.overview}</p>
+        <p class="overview">${ctx.overview}</p>
+        ${getUserData().isAuthenticated
+        ? html `<button>Start watching</button>`
+        : html `<p>Login to start watching</p>`}
     </div>
 `;
 

@@ -175,6 +175,11 @@ header h1 {
 }
 .details p {
     display: inline;
+    color: white;
+    font-size: 3ch;
+}
+.overview {
+    display: inline;
    position: fixed;
    top: 18%;
    left: 25%;
