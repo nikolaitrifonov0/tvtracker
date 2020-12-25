@@ -1,5 +1,6 @@
 import {Router} from 'https://unpkg.com/@vaadin/router';
 import errorHandler from '../utilities/errorHandler.js';
+import {addUserToDB} from './database.js';
 
 export function register(email, password, repeatPassword) {
     if (password.length < 6) {
@@ -9,6 +10,7 @@ export function register(email, password, repeatPassword) {
     }
     firebase.auth().createUserWithEmailAndPassword(email, password)
     .then(res => {
+        addUserToDB(res.user.email);
         sessionStorage.setItem('auth', JSON.stringify(res));
         Router.go('/');
     })

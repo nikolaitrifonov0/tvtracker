@@ -26,7 +26,8 @@ export async function getTV(id) {
         name: response.name,
         overview: response.overview,
         poster: queriesURL.detailsPoster(response['poster_path']),
-        genres: response.genres.map(g => g.name).join()
+        genres: response.genres.map(g => g.name).join(),
+        id: response.id
     };
 
     return tv;

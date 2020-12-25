@@ -1,6 +1,7 @@
 import {html, render} from 'https://unpkg.com/lit-html?module';
 import {getTV} from '../services/showsAPI.js';
 import {getUserData} from '../services/auth.js';
+import {addShowToUser} from '../services/database.js';
 
 const template = (ctx) => html`
     <header-component></header-component>
@@ -10,14 +11,17 @@ const template = (ctx) => html`
         <h2>${ctx.genres}</h2>
         <p class="overview">${ctx.overview}</p>
         ${getUserData().isAuthenticated
-        ? html `<button>Start watching</button>`
+        ? html `<button @click=${addToUser}>Start watching</button>`
         : html `<p>Login to start watching</p>`}
     </div>
 `;
 
+let showId;
+
 class Details extends HTMLElement {
     connectedCallback() {
-        getTV(this.location.params.id)
+        showId = this.location.params.id;
+        getTV(showId)
         .then(tv => {
             Object.assign(this, tv);
             this.render();
@@ -27,6 +31,12 @@ class Details extends HTMLElement {
     render() {
         render(template(this), this);
     }
+}
+
+function addToUser() {
+    let email = getUserData().email;
+
+    addShowToUser(email, showId);
 }
 
 export default Details;
