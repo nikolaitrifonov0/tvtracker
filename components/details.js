@@ -1,9 +1,10 @@
 import {html, render} from 'https://unpkg.com/lit-html?module';
+import {Router} from 'https://unpkg.com/@vaadin/router';
 import {getTV} from '../services/showsAPI.js';
 import {getUserData} from '../services/auth.js';
-import {addShowToUser} from '../services/database.js';
+import {addShowToUser, isWatching} from '../services/database.js';
 
-const template = (ctx) => html`
+const template = async (ctx) => html`
     <header-component></header-component>
     <div class="details">
         <img src="${ctx.poster}" alt="">
@@ -11,7 +12,9 @@ const template = (ctx) => html`
         <h2>${ctx.genres}</h2>
         <p class="overview">${ctx.overview}</p>
         ${getUserData().isAuthenticated
-        ? html `<button @click=${addToUser}>Start watching</button>`
+        ? html `${await isWatching(getUserData().email, ctx.id)
+        ? html `<p>Already watching</p>`
+        : html `<button @click=${addToUser}>Start watching</button>`}`
         : html `<p>Login to start watching</p>`}
     </div>
 `;
@@ -28,8 +31,8 @@ class Details extends HTMLElement {
         });        
     }
 
-    render() {
-        render(template(this), this);
+    async render() {
+        render(await template(this), this);
     }
 }
 
@@ -37,6 +40,7 @@ function addToUser() {
     let email = getUserData().email;
 
     addShowToUser(email, showId);
+    Router.go('/');
 }
 
 export default Details;

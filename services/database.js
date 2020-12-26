@@ -11,13 +11,20 @@ export async function addShowToUser(email, showId) {
 
     user.data.shows.push(showId);
 
-    console.log(user.data);
-
     await request(databaseLink + `/${user.id}.json`, 'put', user.data);
 }
 
 export async function addUserToDB(email) {
     await request(databaseLink + '.json', 'post', {email});
+}
+
+export async function isWatching(email, showId) {
+    let user = await getUserFromDB(email);
+    
+    if (user.data.shows && user.data.shows.includes(showId)) {        
+        return true;
+    }
+    return false;
 }
 
 async function getUserFromDB(email) {
