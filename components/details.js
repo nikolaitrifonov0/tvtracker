@@ -4,6 +4,10 @@ import {getTV} from '../services/showsAPI.js';
 import {getUserData} from '../services/auth.js';
 import {addShowToUser, isWatching} from '../services/database.js';
 
+const checkIfWatching = async (ctx) => html `${await isWatching(getUserData().email, ctx.id)
+    ? html `<p>Already watching</p>`
+    : html `<button @click=${addToUser}>Start watching</button>`}`;
+
 const template = async (ctx) => html`
     <header-component></header-component>
     <div class="details">
@@ -12,9 +16,7 @@ const template = async (ctx) => html`
         <h2>${ctx.genres}</h2>
         <p class="overview">${ctx.overview}</p>
         ${getUserData().isAuthenticated
-        ? html `${await isWatching(getUserData().email, ctx.id)
-        ? html `<p>Already watching</p>`
-        : html `<button @click=${addToUser}>Start watching</button>`}`
+        ? html `${await checkIfWatching(ctx)}`
         : html `<p>Login to start watching</p>`}
     </div>
 `;
