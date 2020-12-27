@@ -32,6 +32,12 @@ async function getUserFromDB(email) {
     let keys = Object.keys(result);
     let userKey = keys.find(k => result[k].email === email); 
     let user = result[userKey]; 
-    return {id: userKey, data: user};
+    return {id: userKey, data: user};    
+}
+
+export async function getCurrentUserShows(email) {
+    let user = await getUserFromDB(email);
+    let shows = user.data.shows;
     
+    return shows;
 }

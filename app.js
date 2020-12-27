@@ -5,7 +5,9 @@ import Login from './components/login.js';
 import Register from './components/register.js';
 import Header from './components/header.js';
 import Details from './components/details.js';
+import Card from './components/show-card.js';
 
+customElements.define('card-component', Card);
 customElements.define('home-component', Home);
 customElements.define('login-component', Login);
 customElements.define('register-component', Register);

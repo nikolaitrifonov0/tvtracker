@@ -1,10 +1,13 @@
 import request from './request.js';
+import {getCurrentUserShows} from './database.js';
+import {getUserData} from '../services/auth.js';
 
 const key = 'd57c009840fb2fde46d325cef8d56af3';
 const queriesURL = {
     search: keywords =>`https://api.themoviedb.org/3/search/tv?api_key=${key}&page=1&query=${keywords}&include_adult=true`,
     tv: id => `https://api.themoviedb.org/3/tv/${id}?api_key=${key}&language=en-US`,
     detailsPoster: path =>  'https://image.tmdb.org/t/p/w342' + path,
+    homeCardPoster: path => 'https://image.tmdb.org/t/p/w154' + path,
 }
 
 export async function search(keywords) {
@@ -18,7 +21,7 @@ export async function search(keywords) {
     return formattedResult;
 }
 
-export async function getTV(id) {
+export async function getTVDetails(id) {
     let url = queriesURL.tv(id);
     let response = await request(url);
     
@@ -30,5 +33,31 @@ export async function getTV(id) {
         id: response.id
     };
 
+    return tv;
+}
+
+export async function getCurrentUserShowsData() {
+    let email = await getUserData().email;
+    let ids = await getCurrentUserShows(email);
+    let shows = []; 
+       
+    for (const i of ids) {
+        let tv = await getTVHomeCard(i);
+        shows.push(tv);  
+        console.log(shows.toString());  
+    }
+    
+    
+    return shows;
+}
+
+async function getTVHomeCard(id) {
+    let url = queriesURL.tv(id);
+    let response = await request(url);
+
+    let tv = {
+        numberOfEpisodes: response['number_of_episodes'],
+        poster: queriesURL.homeCardPoster(response['poster_path'])
+    };
     return tv;
 }

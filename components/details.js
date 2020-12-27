@@ -1,6 +1,6 @@
 import {html, render} from 'https://unpkg.com/lit-html?module';
 import {Router} from 'https://unpkg.com/@vaadin/router';
-import {getTV} from '../services/showsAPI.js';
+import {getTVDetails} from '../services/showsAPI.js';
 import {getUserData} from '../services/auth.js';
 import {addShowToUser, isWatching} from '../services/database.js';
 
@@ -26,7 +26,7 @@ let showId;
 class Details extends HTMLElement {
     connectedCallback() {
         showId = this.location.params.id;
-        getTV(showId)
+        getTVDetails(showId)
         .then(tv => {
             Object.assign(this, tv);
             this.render();

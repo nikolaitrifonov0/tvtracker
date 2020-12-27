@@ -1,22 +1,25 @@
 import {html, render} from 'https://unpkg.com/lit-html?module';
+import {getUserData} from '../services/auth.js';
+import {getCurrentUserShowsData} from '../services/showsAPI.js';
 
-const template = () => html`
+const template = (ctx) => html`
     <header-component></header-component>
     <div class="series-container">
         <div class="series">
-            <img src="https://images-na.ssl-images-amazon.com/images/I/514969URVvL._SY445_.jpg" alt="">
-            <div class="series-data">0/24 <button>+1</button></div>
+        ${ctx.shows?.map(show => html`<card-component .data=${show}></card-component>`)}
         </div>              
     </div>
 `;
 
 class Home extends HTMLElement {
-    connectedCallback() {
-        this.render();
+    async connectedCallback() {
+        let shows = await getCurrentUserShowsData()        
+        this.shows = shows;    
+       this.render();
     }
 
-    render() {
-        render(template(), this)
+    render() {    
+        render(template(this), this, {eventContext: this});               
     }
 }
 
