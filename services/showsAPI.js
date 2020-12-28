@@ -1,6 +1,4 @@
 import request from './request.js';
-import {getCurrentUserShows} from './database.js';
-import {getUserData} from '../services/auth.js';
 
 const key = 'd57c009840fb2fde46d325cef8d56af3';
 const queriesURL = {
@@ -42,7 +40,6 @@ export async function getCurrentUserShowsData(ids) {
     for (const i of ids) {
         let tv = await getTVHomeCard(i);
         shows.push(tv);  
-        console.log(shows.toString());  
     }   
     
     return shows;

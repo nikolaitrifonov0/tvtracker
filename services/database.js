@@ -37,7 +37,7 @@ async function getUserFromDB(email) {
 
 export async function getCurrentUserShows(email) {
     let user = await getUserFromDB(email);
-    let shows = user.data.shows;
+    let shows = user.data ? user.data.shows : [];
     
     return shows;
 }

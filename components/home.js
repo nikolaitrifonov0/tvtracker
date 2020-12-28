@@ -1,15 +1,15 @@
-import {html, render} from 'https://unpkg.com/lit-html?module';
+import {html, render, nothing} from 'https://unpkg.com/lit-html?module';
 import {getUserData} from '../services/auth.js';
 import {getCurrentUserShows} from '../services/database.js';
 import {getCurrentUserShowsData} from '../services/showsAPI.js';
 
 const template = (ctx) => html`
     <header-component></header-component>
-    <div class="series-container">
-        <div class="series">
-        ${ctx.shows?.map(show => html`<card-component .data=${show}></card-component>`)}
-        </div>              
-    </div>
+    ${ctx.user.isAuthenticated
+    ? html`<div class="series-container">        
+        ${ctx.shows?.map(show => html`<card-component .data=${show}></card-component>`)}                     
+    </div>`
+    :nothing}
 `;
 
 class Home extends HTMLElement {
@@ -19,10 +19,12 @@ class Home extends HTMLElement {
     }
 
     async connectedCallback() {
-        let email = await this.email;
-        let ids = await getCurrentUserShows(email);
-        let shows = await getCurrentUserShowsData(ids);        
-        this.shows = shows;    
+        if (this.user.isAuthenticated) {
+            let email = this.user.email;
+            let ids = await getCurrentUserShows(email);
+            let shows = await getCurrentUserShowsData(ids);        
+            this.shows = shows; 
+        }   
        this.render();
     }
 
