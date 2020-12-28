@@ -1,5 +1,6 @@
 import {html, render} from 'https://unpkg.com/lit-html?module';
 import {getUserData} from '../services/auth.js';
+import {getCurrentUserShows} from '../services/database.js';
 import {getCurrentUserShowsData} from '../services/showsAPI.js';
 
 const template = (ctx) => html`
@@ -12,8 +13,15 @@ const template = (ctx) => html`
 `;
 
 class Home extends HTMLElement {
+    constructor() {
+        super();
+        this.user = getUserData();
+    }
+
     async connectedCallback() {
-        let shows = await getCurrentUserShowsData()        
+        let email = await this.email;
+        let ids = await getCurrentUserShows(email);
+        let shows = await getCurrentUserShowsData(ids);        
         this.shows = shows;    
        this.render();
     }

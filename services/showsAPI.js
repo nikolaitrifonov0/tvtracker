@@ -36,17 +36,14 @@ export async function getTVDetails(id) {
     return tv;
 }
 
-export async function getCurrentUserShowsData() {
-    let email = await getUserData().email;
-    let ids = await getCurrentUserShows(email);
+export async function getCurrentUserShowsData(ids) {  
     let shows = []; 
        
     for (const i of ids) {
         let tv = await getTVHomeCard(i);
         shows.push(tv);  
         console.log(shows.toString());  
-    }
-    
+    }   
     
     return shows;
 }
