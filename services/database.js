@@ -57,3 +57,10 @@ export async function addEpisode(email, showId, numberOfEpisodes) {
         await request(databaseLink + `/${user.id}.json`, 'put', user.data);
     }
 }
+
+export async function getCurrentEpisode(email, showId) {
+    let user = await getUserFromDB(email);
+    let show = await user.data.shows.find(s => s.id == showId);
+
+    return show.currentEpisode;
+}
