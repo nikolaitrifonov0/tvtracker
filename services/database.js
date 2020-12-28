@@ -42,3 +42,18 @@ export async function getCurrentUserShows(email) {
     
     return shows;
 }
+
+export async function addEpisode(email, showId, numberOfEpisodes) {
+    let user = await getUserFromDB(email);
+    let show = await user.data.shows.find(s => s.id == showId);
+
+    if (show.status == 'watching') {
+        show.currentEpisode++;
+        
+        if (show.currentEpisode == numberOfEpisodes) {
+            show.status = 'completed';
+        }
+
+        await request(databaseLink + `/${user.id}.json`, 'put', user.data);
+    }
+}

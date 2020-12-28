@@ -51,7 +51,8 @@ async function getTVHomeCard(id) {
 
     let tv = {
         numberOfEpisodes: response['number_of_episodes'],
-        poster: queriesURL.homeCardPoster(response['poster_path'])
+        poster: queriesURL.homeCardPoster(response['poster_path']),
+        id: response.id
     };
     return tv;
 }
