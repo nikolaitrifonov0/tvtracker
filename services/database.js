@@ -9,7 +9,8 @@ export async function addShowToUser(email, showId) {
         user.data.shows = [];
     }
 
-    user.data.shows.push(showId);
+    let show = {id: showId, status: 'watching', currentEpisode:0};
+    user.data.shows.push(show);
 
     await request(databaseLink + `/${user.id}.json`, 'put', user.data);
 }
@@ -21,7 +22,7 @@ export async function addUserToDB(email) {
 export async function isWatching(email, showId) {
     let user = await getUserFromDB(email);
     
-    if (user.data.shows && user.data.shows.includes(showId)) {        
+    if (user.data.shows && user.data.shows.some(s => s.id == showId)) { 
         return true;
     }
     return false;
@@ -37,7 +38,7 @@ async function getUserFromDB(email) {
 
 export async function getCurrentUserShows(email) {
     let user = await getUserFromDB(email);
-    let shows = user.data ? user.data.shows : [];
+    let shows = user.data.shows ? user.data.shows.map(s => s.id) : [];
     
     return shows;
 }
