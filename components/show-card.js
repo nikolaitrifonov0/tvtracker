@@ -15,12 +15,13 @@ class Card extends HTMLElement {
     }
 
     async render() {   
-        this.currentEpisode = await getCurrentEpisode(getUserData().email, this.data.id);     
+        this.currentEpisode = await getCurrentEpisode(getUserData().email, this.data.id);          
         render(template(this), this);
     }
-    addEpisode() {
+    async addEpisode() {
         let showData = this.parentElement.parentElement.parentElement.data;
-        addEpisode(getUserData().email, showData.id, showData.numberOfEpisodes);
+        await addEpisode(getUserData().email, showData.id, showData.numberOfEpisodes);
+        this.parentElement.parentElement.parentElement.render();
     }
 }
 
