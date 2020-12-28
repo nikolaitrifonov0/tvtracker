@@ -38,10 +38,10 @@ class Details extends HTMLElement {
     }
 }
 
-function addToUser() {
+async function addToUser() {
     let email = getUserData().email;
 
-    addShowToUser(email, showId);
+    await addShowToUser(email, showId);
     Router.go('/');
 }
 
