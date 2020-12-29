@@ -64,3 +64,10 @@ export async function getCurrentEpisode(email, showId) {
 
     return show.currentEpisode;
 }
+
+export async function getStatus(email, showId) {
+    let user = await getUserFromDB(email);
+    let show = await user.data.shows.find(s => s.id == showId);
+
+    return show.status;
+}
