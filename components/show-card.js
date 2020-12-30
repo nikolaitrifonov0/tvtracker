@@ -1,5 +1,5 @@
 import {html, render} from 'https://unpkg.com/lit-html?module';
-import {addEpisode, getCurrentEpisode} from '../services/database.js';
+import {addEpisode, getCurrentEpisode, getStatus} from '../services/database.js';
 import {getUserData} from '../services/auth.js';
 
 const template = (ctx) => html`    
@@ -15,13 +15,21 @@ class Card extends HTMLElement {
     }
 
     async render() {   
-        this.currentEpisode = await getCurrentEpisode(getUserData().email, this.data.id);          
+        this.currentEpisode = await getCurrentEpisode(getUserData().email, this.data.id);    
         render(template(this), this);
     }
     async addEpisode() {
-        let showData = this.parentElement.parentElement.parentElement.data;
+        let homeComponent = document.getElementsByTagName('home-component')[0];
+        let showCard = this.parentElement.parentElement.parentElement;
+        let showData = showCard.data;
+
         await addEpisode(getUserData().email, showData.id, showData.numberOfEpisodes);
-        this.parentElement.parentElement.parentElement.render();
+        showCard.render();
+
+        showData.status = await getStatus(getUserData().email, showData.id);
+        if (showData.status == 'completed') {
+            homeComponent.render();
+        }
     }
 }
 

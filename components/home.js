@@ -45,7 +45,7 @@ class Home extends HTMLElement {
         }
     }
 
-    render() {    
+    render() {   
         render(template(this), this, {eventContext: this});               
     }
 }
